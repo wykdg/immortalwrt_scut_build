@@ -77,7 +77,7 @@ jobs:
           
           mv immortalwrt-mt798x/defconfig/* ./artifact/
           # mv immortalwrt-mt798xbin/targets/mediatek/mt7981/immortalwrt-mediatek-mt7981*squashfs* ./artifact/
-          7z a -mx=9 ${env.image_name}.7z ./artifact/*
+          7z a -mx=9 ${image_name}.7z ./artifact/*
 
 
       - name: Upload images to Artifact
@@ -88,3 +88,16 @@ jobs:
           path: ${env.image_name}.7z
           
         
+      - name: Create release
+            id: create_release
+            uses: ncipollo/release-action@v1.12.0
+            with:
+              name: immortalwrt-scutclient
+              allowUpdates: true
+              prerelease: false
+              tag: ${{ env.image_name }}
+              commit: main
+              replacesArtifacts: true
+              token: ${{ secrets.GITHUB_TOKEN }}
+              artifacts: ${env.image_name}.7z
+         
