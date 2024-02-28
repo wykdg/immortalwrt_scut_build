@@ -84,8 +84,8 @@ jobs:
         if: ${{ success() }}
         uses: actions/upload-artifact@v2.2.1
         with:
-          name: ${env.image_name}
-          path: ${env.image_name}.7z
+          name: ${{env.image_name}}
+          path: ${{env.image_name}}.7z
           
         
       - name: Create release
@@ -99,5 +99,5 @@ jobs:
           commit: main
           replacesArtifacts: true
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: ${env.image_name}.7z
+          artifacts: ${{env.image_name}}.7z
          
