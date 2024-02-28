@@ -62,22 +62,25 @@ jobs:
         continue-on-error: true
         run: |
           cd immortalwrt-mt798x
-          make -j$(($(nproc) + 1))
+          # make -j$(($(nproc) + 1))
 
       - name: Package
         run: |
+          GIT_VERSION="$(git rev-parse --short=7 HEAD 2>/dev/null)"
+          build_date="$(date +%Y%m%d)"
           echo "image_name=mt7981_scutclient_${build_date}_${GIT_VERSION}" >> $GITHUB_ENV
           rm -rf ./artifact/
           mkdir -p ./artifact/
-          mv immortalwrt-mt798xbin/targets/mediatek/mt7981/immortalwrt-mediatek-mt7981*squashfs* ./artifact/
-          7z a -mx=9 ${image_name}.7z ./artifact/*
+          mv immortalwrt-mt798xbin/defconfig/* ./artifact/
+          # mv immortalwrt-mt798xbin/targets/mediatek/mt7981/immortalwrt-mediatek-mt7981*squashfs* ./artifact/
+          7z a -mx=9 ${env.image_name}.7z ./artifact/*
 
 
       - name: Upload images to Artifact
         if: ${{ success() }}
         uses: actions/upload-artifact@v2.2.1
         with:
-          name: ${image_name}
-          path: ${image_name}.7z
+          name: ${env.image_name}
+          path: ${env.image_name}.7z
           
         
