@@ -50,6 +50,8 @@ jobs:
           # texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
       - name: Prepare
         run: |
+          build_date="$(date +%Y%m%d)"
+          echo "image_name=immortalwrt-mt7981_scutclient_${build_date}" >> $GITHUB_ENV
           sh 01_prepare.sh
 
       - name: Make Download
@@ -67,25 +69,24 @@ jobs:
 
       - name: Package
         run: |
-          build_date="$(date +%Y%m%d)"
-          echo "image_name=immortalwrt-mt7981_scutclient_${build_date}" >> $GITHUB_ENV
+          
 
 
           rm -rf ./artifact/
           mkdir -p ./artifact/
 
-          
           mv immortalwrt-mt798x/defconfig/* ./artifact/
           # mv immortalwrt-mt798x/bin/targets/mediatek/mt7981/immortalwrt-mediatek-mt7981*squashfs* ./artifact/
-          7z a -mx=9 ${image_name}.7z ./artifact/*
+          cd artifact
+          7z a -mx=9 ../${{env.image_name}}.7z .
 
 
-      - name: Upload images to Artifact
-        if: ${{ success() }}
-        uses: actions/upload-artifact@v2.2.1
-        with:
-          name: ${{env.image_name}}
-          path: ${{env.image_name}}.7z
+      # - name: Upload images to Artifact
+      #   if: ${{ success() }}
+      #   uses: actions/upload-artifact@v2.2.1
+      #   with:
+      #     name: ${{env.image_name}}
+      #     path: ${{env.image_name}}.7z
           
         
       - name: Create release
