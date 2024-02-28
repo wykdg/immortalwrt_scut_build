@@ -66,7 +66,7 @@ jobs:
         continue-on-error: true
         run: |
           cd immortalwrt-mt798x
-          make -j$(($(nproc) + 1))
+          make -j1 V=s
 
       - name: Package
         run: |
