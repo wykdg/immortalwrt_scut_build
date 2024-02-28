@@ -1,1 +1,5 @@
 基于hanwckf的mt798x项目，编译带有scutclient的固件
+
+运行autobuild.sh自动拉取编译，待整合到github action
+
+package.conf为我个人喜好，可自行调整
