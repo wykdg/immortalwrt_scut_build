@@ -1,0 +1,1 @@
+基于hanwckf的mt798x项目，编译带有scutclient的固件
