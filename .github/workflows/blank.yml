@@ -65,6 +65,7 @@ jobs:
           make -j$(($(nproc) + 1))
 
       - name: Package
+        run: |
           echo "image_name=mt7981_scutclient_${build_date}_${GIT_VERSION}" >> $GITHUB_ENV
           rm -rf ./artifact/
           mkdir -p ./artifact/
