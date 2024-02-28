@@ -69,9 +69,13 @@ jobs:
           GIT_VERSION="$(git rev-parse --short=7 HEAD 2>/dev/null)"
           build_date="$(date +%Y%m%d)"
           echo "image_name=mt7981_scutclient_${build_date}_${GIT_VERSION}" >> $GITHUB_ENV
+
+
           rm -rf ./artifact/
           mkdir -p ./artifact/
-          mv immortalwrt-mt798xbin/defconfig/* ./artifact/
+
+          
+          mv immortalwrt-mt798x/defconfig/* ./artifact/
           # mv immortalwrt-mt798xbin/targets/mediatek/mt7981/immortalwrt-mediatek-mt7981*squashfs* ./artifact/
           7z a -mx=9 ${env.image_name}.7z ./artifact/*
 
