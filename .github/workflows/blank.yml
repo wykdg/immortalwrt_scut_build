@@ -17,6 +17,7 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
+    permissions: write-all
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
     if: github.event.repository.owner.id == github.event.sender.id
@@ -66,9 +67,8 @@ jobs:
 
       - name: Package
         run: |
-          GIT_VERSION="$(git rev-parse --short=7 HEAD 2>/dev/null)"
           build_date="$(date +%Y%m%d)"
-          echo "image_name=mt7981_scutclient_${build_date}_${GIT_VERSION}" >> $GITHUB_ENV
+          echo "image_name=immortalwrt-mt7981_scutclient_${build_date}" >> $GITHUB_ENV
 
 
           rm -rf ./artifact/
@@ -76,7 +76,7 @@ jobs:
 
           
           mv immortalwrt-mt798x/defconfig/* ./artifact/
-          # mv immortalwrt-mt798xbin/targets/mediatek/mt7981/immortalwrt-mediatek-mt7981*squashfs* ./artifact/
+          # mv immortalwrt-mt798x/bin/targets/mediatek/mt7981/immortalwrt-mediatek-mt7981*squashfs* ./artifact/
           7z a -mx=9 ${image_name}.7z ./artifact/*
 
 
