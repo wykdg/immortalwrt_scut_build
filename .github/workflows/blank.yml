@@ -89,15 +89,15 @@ jobs:
           
         
       - name: Create release
-            id: create_release
-            uses: ncipollo/release-action@v1.12.0
-            with:
-              name: immortalwrt-scutclient
-              allowUpdates: true
-              prerelease: false
-              tag: ${{ env.image_name }}
-              commit: main
-              replacesArtifacts: true
-              token: ${{ secrets.GITHUB_TOKEN }}
-              artifacts: ${env.image_name}.7z
+        id: create_release
+        uses: ncipollo/release-action@v1.12.0
+        with:
+          name: immortalwrt-scutclient
+          allowUpdates: true
+          prerelease: false
+          tag: ${{ env.image_name }}
+          commit: main
+          replacesArtifacts: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: ${env.image_name}.7z
          
