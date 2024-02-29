@@ -66,12 +66,10 @@ jobs:
         continue-on-error: true
         run: |
           cd immortalwrt-mt798x
-          make -j1 V=s
+          make -j$(nproc) || make -j1 V=s
 
       - name: Package
         run: |
-          
-
 
           rm -rf ./artifact/
           mkdir -p ./artifact/
