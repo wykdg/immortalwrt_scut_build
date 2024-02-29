@@ -40,19 +40,19 @@ jobs:
             config_file: mt7981-ax3000.config
             image_prefix: immortalwrt-mt7981-scutclient
 
-          - build_variant: "mt7981-ax4200"
+          - build_variant: "mt7986-ax4200"
             platform: mt7986
-            config_file: mt7981-ax4200.config
+            config_file: mt7986-ax4200.config
             image_prefix: immortalwrt-mt7986-ax4200-scutclient 
 
           - build_variant: "mt7986-ax6000-256m"
             platform: mt7986
-            config_file: mt7981-ax6000-256m.config
+            config_file: mt7986-ax6000-256m.config
             image_prefix: immortalwrt-mt7986-ax6000-256m-scutclient 
 
           - build_variant: "mt7986-ax6000"
             platform: mt7986
-            config_file: mt7981-ax6000.config
+            config_file: mt7986-ax6000.config
             image_prefix: immortalwrt-mt7986-ax6000-scutclient 
 
 
