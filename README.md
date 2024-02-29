@@ -1,5 +1,7 @@
 基于hanwckf的mt798x项目，编译带有scutclient的固件
+当前只有mt7981的，其他当前没路由器不弄
 
-运行autobuild.sh自动拉取编译，待整合到github action
+直接在github action手动启动编译
+本地运行native_run.sh
 
-package.conf为我个人喜好，可自行调整
+package.conf为我个人喜好选择的库，可自行调整

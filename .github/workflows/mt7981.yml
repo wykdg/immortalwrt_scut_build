@@ -5,8 +5,8 @@ name: CI
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
+  # push:
+  #   branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -75,7 +75,7 @@ jobs:
           mkdir -p ./artifact/
 
           # mv immortalwrt-mt798x/defconfig/* ./artifact/
-          mv immortalwrt-mt798x/bin/targets/mediatek/mt7981/immortalwrt-mediatek-mt7981*squashfs* ./artifact/
+          mv immortalwrt-mt798x/bin/targets/mediatek/mt7981/immortalwrt-*squashfs* ./artifact/
           cd artifact
           7z a -mx=9 ../${{ env.image_name }}.7z .
 
