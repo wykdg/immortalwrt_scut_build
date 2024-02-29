@@ -134,10 +134,10 @@ jobs:
         id: create_release
         uses: ncipollo/release-action@v1.12.0
         with:
-          name: ${{env.release_tag}}
+          name: immortalwrt-mt798x-scutclient
           allowUpdates: true
           prerelease: false
-          tag: ${{ env.image_name }}
+          tag: ${{ env.release_tag }}
           commit: main
           replacesArtifacts: true
           token: ${{ secrets.GITHUB_TOKEN }}
