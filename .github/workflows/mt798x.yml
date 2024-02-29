@@ -91,6 +91,7 @@ jobs:
           echo "image_name=${image_prefix}-${build_date}" >> $GITHUB_ENV
           echo "release_tag=immortalwrt-mt798x-scutclient-$(date +"%Y.%m.%d-%H%M")">> $GITHUB_OUTPUT
           git clone --depth=1 $REPO_URL openwrt
+          cd openwrt
           cat defconfig/${config_file} >.config 
           # sh 01_prepare.sh ${config_file}
 
