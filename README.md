@@ -1,7 +1,4 @@
-基于hanwckf的mt798x项目，编译带有scutclient的固件  
-1. 当前只有mt7981的，其他当前没路由器不弄
-
+基于hanwckf的mt798x项目，编译带有scutclient的固件，适用华工校园网。
+1. 由于我只有360t7，所以测试有限，其他版本不确定是否正常
 2. 直接在github action手动启动编译  
-3. 本地运行native_run.sh
-
-4. package.conf为我个人喜好选择的库，可自行调整
+3. package.conf为我个人喜好选择的库，可自行调整
