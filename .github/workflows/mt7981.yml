@@ -2,6 +2,11 @@
 
 name: CI
 
+
+env:
+  platform: mt7981
+  config_file: mt7981-ax3000.config
+  image_prefix: immortalwrt-mt7981_scutclient
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
@@ -51,9 +56,9 @@ jobs:
       - name: Prepare
         run: |
           build_date="$(date +%Y%m%d)"
-          echo "image_name=immortalwrt-mt7981_scutclient_${build_date}" >> $GITHUB_ENV
+          echo "image_name=${image_prefix}_${build_date}" >> $GITHUB_ENV
 
-          sh 01_prepare.sh
+          sh 01_prepare.sh ${config_file}
 
       - name: Make Download
         run: |
@@ -75,7 +80,7 @@ jobs:
           mkdir -p ./artifact/
 
           # mv immortalwrt-mt798x/defconfig/* ./artifact/
-          mv immortalwrt-mt798x/bin/targets/mediatek/mt7981/immortalwrt-*squashfs* ./artifact/
+          mv immortalwrt-mt798x/bin/targets/mediatek/{platform}/immortalwrt-*squashfs* ./artifact/
           cd artifact
           7z a -mx=9 ../${{ env.image_name }}.7z .
 
@@ -92,7 +97,7 @@ jobs:
         id: create_release
         uses: ncipollo/release-action@v1.12.0
         with:
-          name: immortalwrt-scutclient
+          name: immortalwrt-mt798x-scutclient
           allowUpdates: true
           prerelease: false
           tag: ${{ env.image_name }}

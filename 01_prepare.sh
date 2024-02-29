@@ -32,7 +32,7 @@ sed  -i "s/exit 0/[ ! -f '\/usr\/sbin\/trojan' ] \&\& [ -f '\/usr\/bin\/trojan-g
 
 
 #编译7981
-cat defconfig/mt7981-ax3000.config >.config
+cat defconfig/$1 >.config
 
 #从配置文件读取
 file_content=$(cat ../package.conf)
