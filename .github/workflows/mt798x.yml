@@ -4,9 +4,9 @@ name: CI
 
 
 env:
-  platform: mt7981
-  config_file: mt7981-ax3000.config
-  image_prefix: immortalwrt-mt7981_scutclient
+  
+  REPO_URL: https://github.com/hanwckf/immortalwrt-mt798x
+  REPO_BRANCH: openwrt-21.02
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
@@ -84,14 +84,13 @@ jobs:
           texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
       - name: Prepare
         run: |
-          build_date="$(date +%Y%m%d)"
-          echo "image_name=${image_prefix}-${build_date}" >> $GITHUB_ENV
-
+          
+          git clone --depth=1 $REPO_URL openwrt
           sh 01_prepare.sh ${config_file}
 
       - name: Make Download
         run: |
-          cd immortalwrt-mt798x
+          cd openwrt
           make download -j50
 
 
@@ -99,21 +98,25 @@ jobs:
         id: compileopenwrt
         continue-on-error: true
         run: |
-          cd immortalwrt-mt798x
+          cd openwrt
           make -j$(nproc) || make -j1 V=s
 
       - name: Package
         run: |
+          build_date="$(date +%Y%m%d)"
+          echo "image_name=${image_prefix}-${build_date}" >> $GITHUB_ENV
+          echo "release_tag=immortalwrt-mt798x-scutclient-$(date +"%Y.%m.%d-%H%M")">> $GITHUB_OUTPUT
 
           rm -rf ./artifact/
           mkdir -p ./artifact/
 
-          # mv immortalwrt-mt798x/defconfig/* ./artifact/
-          mv immortalwrt-mt798x/bin/targets/mediatek/{platform}/immortalwrt-*squashfs* ./artifact/
+          # mv openwrt/defconfig/* ./artifact/
+          mv openwrt/bin/targets/mediatek/{platform}/immortalwrt-*squashfs* ./artifact/
           cd artifact
           7z a -mx=9 ../${{ env.image_name }}.7z .
 
-
+          
+          
       # - name: Upload images to Artifact
       #   if: ${{ success() }}
       #   uses: actions/upload-artifact@v2.2.1
@@ -126,7 +129,7 @@ jobs:
         id: create_release
         uses: ncipollo/release-action@v1.12.0
         with:
-          name: immortalwrt-mt798x-scutclient
+          name: ${{env.release_tag}}
           allowUpdates: true
           prerelease: false
           tag: ${{ env.image_name }}

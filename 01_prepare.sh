@@ -1,7 +1,5 @@
-#拉取代码
-git clone --depth=1 https://github.com/hanwckf/immortalwrt-mt798x.git
 
-cd immortalwrt-mt798x
+cd openwrt
 ./scripts/feeds update -a
 
 # 单独拉取mosdns的库
