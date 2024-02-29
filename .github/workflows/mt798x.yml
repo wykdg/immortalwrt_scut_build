@@ -38,7 +38,7 @@ jobs:
           - build_variant: "mt7981-ax3000"
             platform: mt7981
             config_file: mt7981-ax3000.config
-            image_prefix: immortalwrt-mt7981-scutclient
+            image_prefix: immortalwrt-mt7981-ax3000-scutclient
 
           - build_variant: "mt7986-ax4200"
             platform: mt7986
@@ -76,29 +76,29 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-          # sudo apt update -y
-          # sudo apt full-upgrade -y
-          # sudo apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
-          # bzip2 ccache clang clangd cmake cpio curl device-tree-compiler ecj fastjar flex gawk gettext gcc-multilib \
-          # g++-multilib git gperf haveged help2man intltool lib32gcc-s1 libc6-dev-i386 libelf-dev libglib2.0-dev \
-          # libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5 libncursesw5-dev libreadline-dev \
-          # libssl-dev libtool lld lldb lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 \
-          # python3 python3-pip python3-ply python3-docutils qemu-utils re2c rsync scons squashfs-tools subversion swig \
-          # texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
+          sudo apt update -y
+          sudo apt full-upgrade -y
+          sudo apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
+          bzip2 ccache clang clangd cmake cpio curl device-tree-compiler ecj fastjar flex gawk gettext gcc-multilib \
+          g++-multilib git gperf haveged help2man intltool lib32gcc-s1 libc6-dev-i386 libelf-dev libglib2.0-dev \
+          libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5 libncursesw5-dev libreadline-dev \
+          libssl-dev libtool lld lldb lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 \
+          python3 python3-pip python3-ply python3-docutils qemu-utils re2c rsync scons squashfs-tools subversion swig \
+          texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
       - name: Prepare
         run: |
           build_date="$(date +%Y%m%d)"
           echo "image_name=${image_prefix}-${build_date}" >> $GITHUB_ENV
           echo "release_tag=immortalwrt-mt798x-scutclient-${build_date}">> $GITHUB_ENV
           git clone --depth=1 $REPO_URL openwrt
-          cd openwrt
-          cat defconfig/${config_file} >.config 
-          # sh 01_prepare.sh ${config_file}
+          # cd openwrt
+          # cat defconfig/${config_file} >.config 
+          sh 01_prepare.sh ${config_file}
 
       - name: Make Download
         run: |
           cd openwrt
-          # make download -j50
+          make download -j50
 
 
       - name: Compile
@@ -106,7 +106,7 @@ jobs:
         continue-on-error: true
         run: |
           cd openwrt
-          # make -j$(nproc) || make -j1 V=s
+          make -j$(nproc) || make -j1 V=s
 
       - name: Package
         run: |
@@ -115,8 +115,8 @@ jobs:
           rm -rf ./artifact/
           mkdir -p ./artifact/
 
-          mv openwrt/.config ./artifact/
-          # mv openwrt/bin/targets/mediatek/{platform}/immortalwrt-*squashfs* ./artifact/
+          # mv openwrt/.config ./artifact/
+          mv openwrt/bin/targets/mediatek/{platform}/immortalwrt-*squashfs* ./artifact/
           cd artifact
           7z a -mx=9 ../${{ env.image_name }}.7z .
 
