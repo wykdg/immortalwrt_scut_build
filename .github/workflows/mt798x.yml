@@ -116,7 +116,7 @@ jobs:
           mkdir -p ./artifact/
 
           # mv openwrt/.config ./artifact/
-          mv openwrt/bin/targets/mediatek/{platform}/immortalwrt-*squashfs* ./artifact/
+          mv openwrt/bin/targets/mediatek/${{env.platform}}/immortalwrt-*squashfs* ./artifact/
           cd artifact
           7z a -mx=9 ../${{ env.image_name }}.7z .
 
