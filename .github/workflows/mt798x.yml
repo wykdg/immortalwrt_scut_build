@@ -28,7 +28,10 @@ jobs:
 
     env:
       build_variant: ${{ matrix.build_variant }}
-      targets: ${{ matrix.targets }}
+      platform: ${{ matrix.platform }}
+      config_file:  ${{ matrix.config_file }}
+      image_prefix:  ${{ matrix.image_prefix }}
+
     strategy:
       matrix:
         include:
