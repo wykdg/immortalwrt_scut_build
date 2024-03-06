@@ -6,7 +6,7 @@ name: mt7621_CI
 env:
   
   REPO_URL: https://github.com/immortalwrt/immortalwrt.git
-  REPO_BRANCH: master
+  REPO_BRANCH: 23.05
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
@@ -85,10 +85,7 @@ jobs:
           
           
           #编译7621所有机器
-          echo "CONFIG_TARGET_ramips=y
-          CONFIG_TARGET_ramips_mt7621=y
-          CONFIG_TARGET_MULTI_PROFILE=y
-          CONFIG_TARGET_ALL_PROFILES=y">.config
+          echo -e "CONFIG_TARGET_ramips=y\nCONFIG_TARGET_ramips_mt7621=y\nCONFIG_TARGET_MULTI_PROFILE=y\nCONFIG_TARGET_ALL_PROFILES=y">.config
 
           sh ../02_add_package.sh
           make defconfig
