@@ -106,7 +106,7 @@ jobs:
           rm -rf ./artifact/
           mkdir -p ./artifact/
           
-          mv openwrt/bin/targets/mediatek/${{env.platform}}/immortalwrt-*squashfs* ./artifact/
+          mv openwrt/bin/targets/mediatek/${{env.platform}}/* ./artifact/
           cd artifact
           7z a -mx=9 ../${{ env.image_name }}.7z .
 
