@@ -91,7 +91,7 @@ jobs:
 
           #产生config文件
           cat defconfig/${build_variant}.config >.config
-          
+
           sh ../02_add_package.sh
           make defconfig
 
@@ -99,7 +99,6 @@ jobs:
         run: |
           cd openwrt
           make download -j50
-
 
       - name: Compile
         id: compileopenwrt
@@ -110,26 +109,13 @@ jobs:
 
       - name: Package
         run: |
-          
-
           rm -rf ./artifact/
           mkdir -p ./artifact/
 
-          # mv openwrt/.config ./artifact/
-          
           mv openwrt/bin/targets/mediatek/${{env.platform}}/immortalwrt-*squashfs* ./artifact/
           cd artifact
           7z a -mx=9 ../${{ env.image_name }}.7z .
 
-          
-          
-      # - name: Upload images to Artifact
-      #   if: ${{ success() }}
-      #   uses: actions/upload-artifact@v2.2.1
-      #   with:
-      #     name: ${{env.image_name}}
-      #     path: ${{env.image_name}}.7z
-          
         
       - name: Create release
         id: create_release
