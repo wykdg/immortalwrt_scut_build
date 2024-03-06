@@ -84,7 +84,7 @@ jobs:
           echo "release_tag=immortalwrt-mt798x-scutclient-${build_date}">> $GITHUB_ENV
 
 
-          git clone --depth=1 -b REPO_BRANCH $REPO_URL openwrt
+          git clone --depth=1 -b $REPO_BRANCH $REPO_URL openwrt
           
           cd openwrt
           sh ../01_prepare.sh 
