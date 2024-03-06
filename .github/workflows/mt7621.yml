@@ -7,6 +7,7 @@ env:
   
   REPO_URL: https://github.com/immortalwrt/immortalwrt.git
   REPO_BRANCH: 23.05
+
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
@@ -82,9 +83,7 @@ jobs:
           cd openwrt
           sh ../01_prepare.sh 
 
-          
-          
-          #编译7621所有机器
+          #产生config文件，编译所有7621机器
           echo -e "CONFIG_TARGET_ramips=y\nCONFIG_TARGET_ramips_mt7621=y\nCONFIG_TARGET_MULTI_PROFILE=y\nCONFIG_TARGET_ALL_PROFILES=y">.config
 
           sh ../02_add_package.sh

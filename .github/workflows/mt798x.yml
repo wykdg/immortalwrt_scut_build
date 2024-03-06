@@ -89,8 +89,9 @@ jobs:
           cd openwrt
           sh ../01_prepare.sh 
 
-          #编译798x
+          #产生config文件
           cat defconfig/${build_variant}.config >.config
+          
           sh ../02_add_package.sh
           make defconfig
 
