@@ -5,9 +5,8 @@ name: CI
 
 env:
   
-  REPO_URL: https://github.com/hanwckf/immortalwrt-mt798x
-  REPO_BRANCH: openwrt-21.02
-  
+  REPO_URL: https://github.com/immortalwrt/immortalwrt.git
+  REPO_BRANCH: master
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
@@ -30,22 +29,16 @@ jobs:
     env:
       build_variant: ${{ matrix.build_variant }}
       platform: ${{ matrix.platform }}
-      
+   
 
     strategy:
       matrix:
         include:
-          - build_variant: "mt7981-ax3000"
-            platform: mt7981
+          - build_variant: "mt7621"
+            platform: mt7621
+            # config_file: mt7981-ax3000.config
 
-          - build_variant: "mt7986-ax4200"
-            platform: mt7986
 
-          - build_variant: "mt7986-ax6000-256m"
-            platform: mt7986
-
-          - build_variant: "mt7986-ax6000"
-            platform: mt7986
 
         
     if: github.event.repository.owner.id == github.event.sender.id
@@ -81,7 +74,7 @@ jobs:
           build_date="$(date +%Y%m%d)"
           image_prefix=immortalwrt-${build_variant}-scutclient
           echo "image_name=${image_prefix}-${build_date}" >> $GITHUB_ENV
-          echo "release_tag=immortalwrt-mt798x-scutclient-${build_date}">> $GITHUB_ENV
+          echo "release_tag=immortalwrt-mt7621-scutclient-${build_date}">> $GITHUB_ENV
 
 
           git clone --depth=1 $REPO_URL openwrt
@@ -89,8 +82,14 @@ jobs:
           cd openwrt
           sh ../01_prepare.sh 
 
-          #编译798x
-          cat defconfig/${build_variant}.config >.config
+          
+          
+          #编译7621所有机器
+          echo "CONFIG_TARGET_ramips=y
+          CONFIG_TARGET_ramips_mt7621=y
+          CONFIG_TARGET_MULTI_PROFILE=y
+          CONFIG_TARGET_ALL_PROFILES=y">.config
+
           sh ../02_add_package.sh
           make defconfig
 
