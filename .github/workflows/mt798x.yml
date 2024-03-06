@@ -1,13 +1,13 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: mt798x_CI
 
 
 env:
   
   REPO_URL: https://github.com/hanwckf/immortalwrt-mt798x
   REPO_BRANCH: openwrt-21.02
-  
+
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
