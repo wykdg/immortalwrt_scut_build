@@ -35,7 +35,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - build_variant: "mt7621"
+          - build_variant: mt7621
             platform: mt7621
             # config_file: mt7981-ax3000.config
 
@@ -75,7 +75,7 @@ jobs:
           build_date="$(date +%Y%m%d)"
           image_prefix=immortalwrt-${build_variant}-scutclient
           echo "image_name=${image_prefix}-${build_date}" >> $GITHUB_ENV
-          echo "release_tag=immortalwrt-mt7621-scutclient-${build_date}">> $GITHUB_ENV
+          echo "release_tag=immortalwrt-mt762x-scutclient-${build_date}">> $GITHUB_ENV
 
 
           git clone --depth=1 -b $REPO_BRANCH $REPO_URL openwrt
@@ -107,7 +107,7 @@ jobs:
           rm -rf ./artifact/
           mkdir -p ./artifact/
           
-          mv openwrt/bin/targets/mediatek/${{env.platform}}/* ./artifact/
+          mv openwrt/bin/targets/ramips/${platform}/* ./artifact/
           cd artifact
           7z a -mx=9 ../${{ env.image_name }}.7z .
 
