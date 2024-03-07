@@ -30,16 +30,18 @@ jobs:
     env:
       build_variant: ${{ matrix.build_variant }}
       platform: ${{ matrix.platform }}
-   
+      type: ${{ matrix.type }}
 
     strategy:
       matrix:
         include:
           - build_variant: mt7621-mini
             platform: mt7621
+            type: mini
 
           - build_variant: mt7621-full
             platform: mt7621
+            type: full
 
 
 
@@ -87,7 +89,7 @@ jobs:
 
           #产生config文件，编译所有7621机器
           cat ../mt7621_config.seed>.config
-          if [ "$build_variant" == "full" ]; then
+          if [ "$type" == "full" ]; then
             sh ../02_add_package.sh
           fi
           
@@ -110,7 +112,13 @@ jobs:
           rm -rf ./artifact/
           mkdir -p ./artifact/
           
-          mv openwrt/bin/targets/ramips/${platform}/* ./artifact/
+          
+          if [ "$build_variant" == "full" ]; then
+            mv openwrt/bin/targets/ramips/${platform}/immortalwrt*sysupgrade* ./artifact/
+          else
+            mv openwrt/bin/targets/ramips/${platform}/immortalwrt* ./artifact/
+          fi
+          
           cd artifact
           7z a -mx=9 ../${{ env.image_name }}.7z .
 
