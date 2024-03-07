@@ -5,7 +5,7 @@ immortalwrt 华南理工校园版版本编译,集成luci-app-scutclient，和半
 798x基于hanwckf的项目[immortalwrt-798x](https://github.com/hanwckf/immortalwrt-mt798x)    
 由于我只有360t7和jcg q20，所以测试有限，其他版本不确定是否正常  
 
-7621 mini只加了一点插件。full带了ssr、passwall和mosdns，这几个太大了，uboot只能先刷mini的，再进系统sysupgrade。
+7621只编了一些我觉得可能会用的机器，需要可以自己加
 
 编译方法：  
 1. 直接在github action手动启动编译  
