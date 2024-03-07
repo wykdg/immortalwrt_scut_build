@@ -113,7 +113,7 @@ jobs:
           mkdir -p ./artifact/
           
           
-          if [ "$build_variant" == "full" ]; then
+          if [ "$type" == "full" ]; then
             mv openwrt/bin/targets/ramips/${platform}/immortalwrt*sysupgrade* ./artifact/
           else
             mv openwrt/bin/targets/ramips/${platform}/immortalwrt* ./artifact/
