@@ -35,9 +35,11 @@ jobs:
     strategy:
       matrix:
         include:
-          - build_variant: mt7621
+          - build_variant: mt7621-mini
             platform: mt7621
-            # config_file: mt7981-ax3000.config
+
+          - build_variant: mt7621-full
+            platform: mt7621
 
 
 
@@ -85,8 +87,10 @@ jobs:
 
           #产生config文件，编译所有7621机器
           cat ../mt7621_config.seed>.config
-
-          # sh ../02_add_package.sh
+          if [ "$build_variant" == "full" ]; then
+            sh ../02_add_package.sh
+          fi
+          
           make defconfig
 
       - name: Make Download
