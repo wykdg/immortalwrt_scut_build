@@ -19,7 +19,6 @@ CONFIG_TARGET_DEVICE_ramips_mt7621_DEVICE_zte_e8820s=y
 
 CONFIG_PACKAGE_luci-app-socat=y
 CONFIG_PACKAGE_luci-app-autoreboot=y
-CONFIG_PACKAGE_luci-app-frpc=y
 CONFIG_PACKAGE_luci-app-scutclient=y
 CONFIG_PACKAGE_luci-app-ddns=y
 CONFIG_PACKAGE_luci-app-ttyd=y
