@@ -1,7 +1,7 @@
 immortalwrt 华南理工校园版版本编译,集成luci-app-scutclient，和半成品的联通加速
 
 当前完成了7621和798x的集成，
-7621用[immortalwrt 21.02](https://github.com/immortalwrt/immortalwrt/tree/openwrt-21.02),  
+7621用[immortalwrt 21.02](https://github.com/immortalwrt/immortalwrt/tree/openwrt-21.02),  mini带的插件少，能在uboot刷入。full在uboot刷不进去，只能先刷mini的再进系统升级。  
 798x基于hanwckf的项目[immortalwrt-798x](https://github.com/hanwckf/immortalwrt-mt798x)    
 由于我只有360t7和jcg q20，所以测试有限，其他版本不确定是否正常  
 
