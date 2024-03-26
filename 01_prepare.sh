@@ -10,11 +10,9 @@ git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
 
 #单独拉取scutclient
 rm -rf feeds/luci/applications/luci-app-scutclient/
-git clone https://github.com/hanwckf/luci-app-scutclient.git feeds/luci/applications/luci-app-scutclient 
+git clone https://github.com/wykdg/luci-app-scutclient.git feeds/luci/applications/luci-app-scutclient 
 
-#单独拉取联通加速
-mkdir package/scut-unicom
-wget https://raw.githubusercontent.com/wykdg/route_script/master/scut-unicom/Makefile -O package/scut-unicom/Makefile
+
 
 ./scripts/feeds install -a
 
