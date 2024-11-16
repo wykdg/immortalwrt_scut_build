@@ -1,12 +1,15 @@
+sed -i '1i src-git kenzo https://github.com/kenzok8/openwrt-packages' feeds.conf.default
+sed -i '2i src-git small https://github.com/kenzok8/small' feeds.conf.default
 
-./scripts/feeds update -a
+./scripts/feeds update -a && rm -rf feeds/luci/applications/luci-app-mosdns
+rm -rf feeds/packages/net/{alist,adguardhome,mosdns,xray*,v2ray*,v2ray*,sing*,smartdns}
+rm -rf feeds/packages/utils/v2dat
 
-# 单独拉取mosdns的库
-rm -rf feeds/packages/net/v2ray-geodata
 rm -rf feeds/packages/lang/golang
-git clone https://github.com/sbwml/packages_lang_golang -b 20.x feeds/packages/lang/golang
-git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns
-git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
+git clone https://github.com/kenzok8/golang feeds/packages/lang/golang
+
+rm -rf feeds/packages/net/frp
+git clone https://github.com/kuoruan/openwrt-frp.git package/frp
 
 #单独拉取scutclient
 rm -rf feeds/luci/applications/luci-app-scutclient/
