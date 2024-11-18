@@ -85,14 +85,16 @@ jobs:
 
 
           git clone --depth=1 -b $REPO_BRANCH $REPO_URL openwrt
-          
+          chmod +x 01_prepare.sh
+          chmod +x 02_add_package.sh
           cd openwrt
-          sh ../01_prepare.sh 
+          
+          ../01_prepare.sh 
 
           #产生config文件
           cat defconfig/${build_variant}.config >.config
 
-          sh ../02_add_package.sh
+          ../02_add_package.sh
           make defconfig
 
       - name: Make Download
