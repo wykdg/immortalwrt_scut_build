@@ -85,12 +85,12 @@ jobs:
           git clone --depth=1 -b $REPO_BRANCH $REPO_URL openwrt
           
           cd openwrt
-          sh ../01_prepare.sh 
+          bash ../01_prepare.sh 
 
           #产生config文件，编译所有7621机器
           cat ../mt7621_config.seed>.config
           if [ "$type" == "full" ]; then
-            sh ../02_add_package.sh
+            bash ../02_add_package.sh
           fi
           
           make defconfig
