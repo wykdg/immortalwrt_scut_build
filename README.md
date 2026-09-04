@@ -1,7 +1,14 @@
-immortalwrt 华南理工校园版版本编译，集成 luci-app-scutclient。每次编译直接拉取 `wykdg/luci-app-scutclient` 的最新版本。
+immortalwrt 华南理工校园版版本编译,集成luci-app-scutclient，和半成品的联通加速
 
-798x 保持原有的 hanwckf/immortalwrt-mt798x `openwrt-21.02` 内核和分区布局，源码锁定在项目最后一次 798x 编译使用的基线。原有目标和 U-Boot 不变。
+当前完成了7621和798x的集成，
+7621用[immortalwrt 21.02](https://github.com/immortalwrt/immortalwrt/tree/openwrt-21.02),  mini带的插件少，能在uboot刷入。full在uboot刷不进去，只能先刷mini的再进系统升级。  
+798x基于hanwckf的项目[immortalwrt-798x](https://github.com/hanwckf/immortalwrt-mt798x)    
+由于我只有360t7和jcg q20，所以测试有限，其他版本不确定是否正常  
 
-Passwall 从官方仓库独立拉取固定的新版本（当前为 26.9.1），OpenClash 也从官方仓库独立拉取固定的 v0.47.156。Passwall 配套 Sing-box 1.14.0，并使用 Go 1.25.14；只启用 Sing-box。Xray、mosdns 和 openvpn-server 不编译，以控制固件体积。其他插件沿用原项目配置。
+7621只编了一些我觉得可能会用的机器，需要可以自己加
 
-由于我只有 360T7 和 JCG Q20，其他机型测试有限。编译可在 GitHub Actions 手动启动，也会在推送到 `main` 时启动；`package.conf` 可按需调整。
+编译方法：  
+1. 直接在github action手动启动编译  
+2. package.conf为我个人喜好选择的库,可自行调整 
+
+Passwall安装版本：26.9.1
