@@ -9,7 +9,6 @@ PASSWALL_COMMIT="8347d3034f2ec6ef87dd1eca41a93017ae85fc4e"
 PASSWALL_PACKAGES_COMMIT="3e11c458c552aefd348232c627fd1ed9f8f08e41"
 OPENCLASH_COMMIT="c3a33c1d3407956fdf8f0e0b7c1a4c52e6ad9593"
 FRP_COMMIT="8503943074fb6ae4a06f5cacdb07b577555b0565"
-SCUTCLIENT_COMMIT="c7f0e281098cf6b583e63c32f67606601b86a8fd"
 
 clone_at() {
 	local url="$1" ref="$2" destination="$3"
@@ -66,7 +65,7 @@ rm -rf feeds/small/luci-app-passwall
 rm -rf feeds/small/luci-app-openclash package/openclash
 rm -rf feeds/small/sing-box
 rm -rf feeds/luci/applications/luci-app-scutclient package/frp
-clone_at https://github.com/wykdg/luci-app-scutclient.git "$SCUTCLIENT_COMMIT" feeds/luci/applications/luci-app-scutclient
+git clone --depth=1 https://github.com/wykdg/luci-app-scutclient.git feeds/luci/applications/luci-app-scutclient
 clone_at https://github.com/kuoruan/openwrt-frp.git "$FRP_COMMIT" package/frp
 
 if [[ -f feeds/small/dns2tcp/Makefile ]] && ! grep -q '^PKG_USE_MIPS16[[:space:]]*:=' feeds/small/dns2tcp/Makefile; then

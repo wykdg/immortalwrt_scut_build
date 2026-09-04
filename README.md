@@ -1,4 +1,4 @@
-immortalwrt 华南理工校园版版本编译，集成 luci-app-scutclient
+immortalwrt 华南理工校园版版本编译，集成 luci-app-scutclient。每次编译直接拉取 `wykdg/luci-app-scutclient` 的最新版本。
 
 798x 保持原有的 hanwckf/immortalwrt-mt798x `openwrt-21.02` 内核和分区布局，源码锁定在项目最后一次 798x 编译使用的基线。原有目标和 U-Boot 不变。
 
