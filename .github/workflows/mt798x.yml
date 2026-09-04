@@ -38,13 +38,14 @@ jobs:
       - name: Maximize build space
         uses: easimon/maximize-build-space@master
         with:
-          swap-size-mb: 512
-          temp-reserve-mb: 128
-          root-reserve-mb: 3072
+          swap-size-mb: 1024
+          temp-reserve-mb: 1024
+          root-reserve-mb: 8192
           remove-dotnet: 'true'
           remove-android: 'true'
           remove-haskell: 'true'
           remove-codeql: 'true'
+          remove-docker-images: 'true'
       - name: Checkout
         uses: actions/checkout@v4
       - name: Init build dependencies
@@ -60,6 +61,9 @@ jobs:
             msmtp nano ninja-build p7zip p7zip-full patch pkgconf python3 python3-pip python3-ply \
             python3-docutils qemu-utils re2c rsync scons squashfs-tools subversion swig texinfo uglifyjs \
             upx-ucl unzip vim wget xmlto xxd zlib1g-dev
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          df -h
       - name: Prepare
         run: |
           build_date="$(date +%Y%m%d)"
