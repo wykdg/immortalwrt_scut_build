@@ -90,6 +90,14 @@ clone_at https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git "$PAS
 clone_at https://github.com/Openwrt-Passwall/openwrt-passwall.git "$PASSWALL_COMMIT" package/passwall-luci
 clone_at https://github.com/vernesong/OpenClash.git "$OPENCLASH_COMMIT" package/openclash
 
+# ImmortalWrt 21.02 does not understand the newer PKG_BUILD_FLAGS variable.
+# Disable MIPS16 explicitly so Go's runtime/cgo MIPS assembly is assembled in
+# the regular MIPS ABI instead of receiving -mips16 from package.mk.
+sing_box_makefile="package/passwall-packages/sing-box/Makefile"
+if [[ -f "$sing_box_makefile" ]] && ! grep -q '^PKG_USE_MIPS16[[:space:]]*:=' "$sing_box_makefile"; then
+	insert_first 'PKG_USE_MIPS16:=0' "$sing_box_makefile"
+fi
+
 # OpenClash calls po2lmo while preparing translations.  Declare LuCI's host
 # tool explicitly because package.mk alone does not pull in luci-base/host.
 openclash_makefile="package/openclash/luci-app-openclash/Makefile"
