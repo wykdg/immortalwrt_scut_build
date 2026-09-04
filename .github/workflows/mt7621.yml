@@ -90,7 +90,13 @@ jobs:
       - name: Compile
         run: |
           cd openwrt
-          make -j"$(nproc)" || make -j1 V=s
+          if ! make -j"$(nproc)"; then
+            if [ "$type" = "full" ]; then
+              echo "Parallel build failed; rerunning sing-box with verbose output"
+              make package/passwall-packages/sing-box/compile -j1 V=s
+            fi
+            exit 1
+          fi
       - name: Package
         run: |
           rm -rf ./artifact/
