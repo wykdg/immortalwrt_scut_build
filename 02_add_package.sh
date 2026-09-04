@@ -1,12 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
 
+package_file="${PACKAGE_FILE:-../package.conf}"
+[[ -f "$package_file" ]] || { echo "Package list not found: $package_file" >&2; exit 1; }
 
+awk '
+	/^[[:space:]]*#/ || NF == 0 { next }
+	$1 == "luci-app-mosdns" || $1 == "luci-app-openvpn-server" || $1 == "luci-app-passwall_INCLUDE_Xray" { next }
+	{ print "CONFIG_PACKAGE_" $1 "=y" }
+' "$package_file" >> .config
 
-#从配置文件读取
-file_content=$(cat ../package.conf)
-# 在每一行前面添加"config"，在后面添加"=y"
-new_content=$(echo "$file_content" | awk '{print "CONFIG_PACKAGE_" $0 "=y"}')
-# 将修改后的内容追加到.config文件中
-echo "$new_content" >> .config
-
-
-
+# Passwall defaults Xray to y on these targets; force the requested single-box setup.
+cat >> .config <<'EOF'
+CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Xray=n
+CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Xray_Plugin=n
+CONFIG_PACKAGE_xray-core=n
+CONFIG_PACKAGE_xray-plugin=n
+CONFIG_PACKAGE_luci-app-mosdns=n
+CONFIG_PACKAGE_luci-app-openvpn-server=n
+EOF
