@@ -7,15 +7,10 @@ env:
   REPO_COMMIT: fc9fe90e5a804d7af5449260f2e5b7ae6d414266
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
   workflow_dispatch:
 
 jobs:
   build:
-    if: github.event_name != 'pull_request' || github.event.repository.owner.id == github.event.sender.id
     permissions: write-all
     runs-on: ubuntu-22.04
 
