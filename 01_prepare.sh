@@ -115,9 +115,22 @@ fi
 
 ./scripts/feeds install -a
 
-# The feed index can recreate removed packages as symlinks; keep the
-# independently pinned trees as the only providers for these package names.
-rm -rf package/feeds/small/luci-app-openclash package/feeds/small/luci-app-passwall package/feeds/small/sing-box
+# The feed index can recreate removed packages as symlinks. Remove every feed
+# provider whose directory name is also supplied by the official Passwall tree,
+# so old copies from small/Kenzo/packages cannot override the pinned packages.
+while IFS= read -r -d '' passwall_makefile; do
+	passwall_package="$(basename "$(dirname "$passwall_makefile")")"
+	rm -rf package/feeds/*/"$passwall_package"
+done < <(find package/passwall-packages -mindepth 2 -maxdepth 2 -name Makefile -print0)
+rm -rf package/feeds/*/luci-app-passwall package/feeds/*/luci-app-openclash
+
+chinadns_makefile="package/passwall-packages/chinadns-ng/Makefile"
+chinadns_version="$(sed -n 's/^PKG_VERSION:=//p' "$chinadns_makefile")"
+if [[ "$chinadns_version" != "2025.08.09" ]]; then
+	echo "Unexpected Passwall chinadns-ng version: ${chinadns_version:-missing}" >&2
+	exit 1
+fi
+echo "Using Passwall chinadns-ng ${chinadns_version}"
 
 # Preserve the original local customizations.
 sed_in_place "s#option command '/bin/login'#option command '/bin/login -f root'#" feeds/packages/utils/ttyd/files/ttyd.config

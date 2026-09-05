@@ -79,6 +79,12 @@ jobs:
           fi
           make defconfig
 
+          chinadns_version="$(awk '/^Package: chinadns-ng$/{found=1; next} found && /^Version:/{print $2; exit}' tmp/.packageinfo)"
+          if [ "$chinadns_version" != "2025.08.09-1" ]; then
+            echo "Wrong chinadns-ng provider selected: ${chinadns_version:-missing}" >&2
+            exit 1
+          fi
+
           if grep -Eq '^CONFIG_PACKAGE_(luci-app-mosdns|luci-app-openvpn-server|luci-app-passwall_INCLUDE_Xray|xray-core|xray-plugin)=[ym]$' .config; then
             echo 'A removed proxy package is still selected' >&2
             exit 1
